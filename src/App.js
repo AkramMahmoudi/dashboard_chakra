@@ -1,9 +1,23 @@
 import React, { useState } from "react";
-import { Box, Grid, Flex, VStack, Text, Button } from "@chakra-ui/react";
+import { Box, Grid, Flex, VStack, Text } from "@chakra-ui/react";
 // import { HamburgerIcon } from "@chakra-ui/icons"; // Hamburger icon for mobile menu
+
+import { Button } from "./components/ui/button";
+import {
+  DrawerActionTrigger,
+  DrawerBackdrop,
+  DrawerBody,
+  DrawerCloseTrigger,
+  DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerRoot,
+  DrawerTitle,
+} from "./components/ui/drawer";
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   return (
     <>
       <Grid
@@ -45,45 +59,6 @@ function App() {
             <Text fontSize="lg">Profile</Text>
             <Text fontSize="lg">Logout</Text>
           </VStack>
-
-          {/* mobile */}
-          <Button
-            display={{ base: "block", md: "none" }}
-            leftIcon={<></>}
-            bg="white" // White button background
-            color="black" // Black text color
-            boxShadow="md" // Adds a medium shadow
-            _hover={{ bg: "gray.200" }} // Slightly darker background on hover
-            _active={{ bg: "gray.300", transform: "scale(0.98)" }} // Active state styling
-            onClick={() => setIsSidebarOpen(!isSidebarOpen)} // Toggle sidebar visibility
-            position="absolute" // Positioning the button at the top-right corner
-            top={4} // Adjust top position
-            right={4} // Adjust right position
-          >
-            Close Menu
-          </Button>
-          <Flex
-            display={{ base: "flex", md: "none" }}
-            direction="column"
-            align="center" // Center horizontally
-            justify="center" // Center vertically
-            height="100%"
-          >
-            <VStack align="center" spacing={6}>
-              <Text fontSize="lg" fontWeight="bold" textAlign="center">
-                Dashboard
-              </Text>
-              <Text fontSize="lg" textAlign="center">
-                Settings
-              </Text>
-              <Text fontSize="lg" textAlign="center">
-                Profile
-              </Text>
-              <Text fontSize="lg" textAlign="center">
-                Logout
-              </Text>
-            </VStack>
-          </Flex>
         </Box>
 
         {/* Header */}
@@ -96,6 +71,49 @@ function App() {
           justifyContent="space-around"
           gridColumn={{ base: "1/-1", md: "2/3" }}
         >
+          <DrawerRoot open={open} onOpenChange={(e) => setOpen(e.open)}>
+            <DrawerBackdrop display={{ md: "none" }} />
+            <DrawerContent display={{ md: "none" }}>
+              <DrawerHeader>
+                <DrawerTitle>Dashboard</DrawerTitle>
+              </DrawerHeader>
+              <DrawerBody>
+                <Flex
+                  display={{ base: "flex", md: "none" }}
+                  direction="column"
+                  align="center" // Center horizontally
+                  justify="flex-start" // Center vertically
+                  height="100%"
+                >
+                  <VStack align="center" spacing={6}>
+                    <Text
+                      fontSize="lg"
+                      fontWeight="bold"
+                      textAlign="center"
+                      pb={4}
+                    >
+                      Dashboard
+                    </Text>
+                    <Text fontSize="lg" textAlign="center" pb={4}>
+                      Settings
+                    </Text>
+                    <Text fontSize="lg" textAlign="center" pb={4}>
+                      Profile
+                    </Text>
+                    <Text fontSize="lg" textAlign="center" pb={4}>
+                      Logout
+                    </Text>
+                  </VStack>
+                </Flex>
+              </DrawerBody>
+              <DrawerFooter>
+                <DrawerActionTrigger asChild>
+                  <Button variant="outline">Cancel</Button>
+                </DrawerActionTrigger>
+              </DrawerFooter>
+              <DrawerCloseTrigger />
+            </DrawerContent>
+          </DrawerRoot>
           <Box display={{ base: "block", md: "none" }}>
             <Button
               leftIcon={<></>}
@@ -104,7 +122,7 @@ function App() {
               boxShadow="md" // Adds a medium shadow
               _hover={{ bg: "gray.200" }} // Slightly darker background on hover
               _active={{ bg: "gray.300", transform: "scale(0.98)" }} // Active state styling
-              onClick={() => setIsSidebarOpen(!isSidebarOpen)} // Toggle sidebar visibility
+              onClick={() => setOpen(!open)} // Toggle sidebar visibility
             >
               Open Menu
             </Button>
@@ -118,7 +136,6 @@ function App() {
             Welcome to the Dashboard
           </Text>
         </Box>
-
         {/* Main Content */}
         <Box p={5}>
           <Grid templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }} gap={6}>
