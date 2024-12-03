@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Grid, Flex, VStack, Text } from "@chakra-ui/react";
+import { Box, Grid, Flex, VStack, Text, Table } from "@chakra-ui/react";
 // import { HamburgerIcon } from "@chakra-ui/icons"; // Hamburger icon for mobile menu
 
 import { Button } from "./components/ui/button";
@@ -15,8 +15,55 @@ import {
   DrawerTitle,
 } from "./components/ui/drawer";
 
+const items = [
+  {
+    id: 1,
+    name: "Laptop",
+    category: "Electronics",
+    price: 999.99,
+    price2: 999.99,
+    price3: 999.99,
+    price4: 999.99,
+  },
+  {
+    id: 2,
+    name: "Coffee Maker",
+    category: "Home Appliances",
+    price: 49.99,
+    price2: 999.99,
+    price3: 999.99,
+    price4: 999.99,
+  },
+  {
+    id: 3,
+    name: "Desk Chair",
+    category: "Furniture",
+    price: 150.0,
+    price2: 999.99,
+    price3: 999.99,
+    price4: 999.99,
+  },
+  {
+    id: 4,
+    name: "Smartphone",
+    category: "Electronics",
+    price: 799.99,
+    price2: 999.99,
+    price3: 999.99,
+    price4: 999.99,
+  },
+  {
+    id: 5,
+    name: "Headphones",
+    category: "Accessories",
+    price: 199.99,
+    price2: 999.99,
+    price3: 999.99,
+    price4: 999.99,
+  },
+];
 function App() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  // const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [open, setOpen] = useState(false);
   return (
     <>
@@ -34,7 +81,7 @@ function App() {
           bg="blue.600"
           color="white"
           p={5}
-          display={{ base: isSidebarOpen ? "block" : "none", md: "block" }} // Show sidebar on medium and larger screens
+          display={{ base: "none", md: "block" }} // Show sidebar on medium and larger screens
           zIndex={10}
           position={{ base: "absolute", md: "relative" }}
           top={0}
@@ -138,7 +185,7 @@ function App() {
         </Box>
         {/* Main Content */}
         <Box p={5}>
-          <Grid templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }} gap={6}>
+          {/* <Grid templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }} gap={6}>
             <Box bg="gray.200" p={5} borderRadius="md">
               <Text>Card 1</Text>
             </Box>
@@ -147,6 +194,77 @@ function App() {
             </Box>
             <Box bg="gray.200" p={5} borderRadius="md">
               <Text>Card 3</Text>
+            </Box>
+          </Grid> */}
+
+          <Grid templateColumns="1fr" templateRows="auto 1fr" gap={6}>
+            <Box gridRow="1 / 2">
+              <p>search bar and add user button</p>
+            </Box>
+            <Box gridRow="2 / 3">
+              <Flex justify="center" align="center">
+                <Table.ScrollArea
+                  borderWidth="1px"
+                  maxW={{ base: "xs", md: "5xl" }}
+                >
+                  <Table.Root size="lg" variant="outline">
+                    <Table.Header>
+                      <Table.Row>
+                        <Table.ColumnHeader minW={{ md: "300px" }}>
+                          Product
+                        </Table.ColumnHeader>
+                        <Table.ColumnHeader minW={{ md: "300px" }}>
+                          Category
+                        </Table.ColumnHeader>
+                        <Table.ColumnHeader
+                          minW={{ md: "200px" }}
+                          textAlign="center"
+                        >
+                          Price
+                        </Table.ColumnHeader>
+                        <Table.ColumnHeader
+                          minW={{ md: "200px" }}
+                          textAlign="center"
+                        >
+                          Price2
+                        </Table.ColumnHeader>
+                        <Table.ColumnHeader
+                          minW={{ md: "200px" }}
+                          textAlign="center"
+                        >
+                          Price3
+                        </Table.ColumnHeader>
+                        <Table.ColumnHeader
+                          minW={{ md: "200px" }}
+                          textAlign="center"
+                        >
+                          Price4
+                        </Table.ColumnHeader>
+                      </Table.Row>
+                    </Table.Header>
+                    <Table.Body>
+                      {items.map((item) => (
+                        <Table.Row key={item.id}>
+                          <Table.Cell>{item.name}</Table.Cell>
+                          <Table.Cell>{item.category}</Table.Cell>
+                          <Table.Cell textAlign="center">
+                            {item.price}
+                          </Table.Cell>
+                          <Table.Cell textAlign="center">
+                            {item.price2}
+                          </Table.Cell>
+                          <Table.Cell textAlign="center">
+                            {item.price3}
+                          </Table.Cell>
+                          <Table.Cell textAlign="center">
+                            {item.price4}
+                          </Table.Cell>
+                        </Table.Row>
+                      ))}
+                    </Table.Body>
+                  </Table.Root>
+                </Table.ScrollArea>
+              </Flex>
             </Box>
           </Grid>
         </Box>
