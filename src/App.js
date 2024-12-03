@@ -78,7 +78,7 @@ function App() {
       >
         {/* Sidebar */}
         <Box
-          bg="blue.600"
+          bg="blackAlpha.800"
           color="white"
           p={5}
           display={{ base: "none", md: "block" }} // Show sidebar on medium and larger screens
@@ -96,8 +96,9 @@ function App() {
             spacing={6}
             display={{ base: "none", md: "block" }}
             p={5}
-            bg="blue.600"
+            bg="blackAlpha.200"
             color="white"
+            borderRadius="md"
           >
             <Text fontSize="lg" fontWeight="bold">
               Dashboard
